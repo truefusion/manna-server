@@ -10,9 +10,11 @@ namespace manna {
 	{
 		public:
 			server(std::string, int);
+			~server();
 
 			void handle(std::string, handler);
 			bool run();
+			void stop();
 
 			std::string Host = "localhost";
 			int Port = 80;

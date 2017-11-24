@@ -23,6 +23,10 @@ manna::server::server(std::string host = "localhost", int port = 80)
 	});
 }
 
+manna::server::~server() {
+	delete this->lib;
+}
+
 void manna::server::handle(std::string pattern, handler h) {
 	this->handlers[pattern] = h;
 }
@@ -35,4 +39,8 @@ bool manna::server::run() {
 	,	std::to_string(this->Port)
 	,	true
 	));
+}
+
+void manna::server::stop() {
+	this->lib->join();
 }
