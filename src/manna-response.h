@@ -9,6 +9,12 @@ namespace manna {
 		public:
 			response(const nghttp2::asio_http2::server::response &);
 
+			void flush();
+
+			std::string Body = "";
+			std::multimap<std::string,std::string> Headers;
+			int Status = 200;
+
 		private:
 			const nghttp2::asio_http2::server::response & impl;
 	};
