@@ -9,6 +9,7 @@ namespace manna {
 		public:
 			response(const nghttp2::asio_http2::server::response &);
 
+		private:
 			const nghttp2::asio_http2::server::response & impl;
 	};
 }
