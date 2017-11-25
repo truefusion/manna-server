@@ -1,6 +1,8 @@
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
+#include <functional>
+
 #include "manna-request.h"
 #include "manna-response.h"
 

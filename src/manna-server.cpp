@@ -1,34 +1,30 @@
 #include "manna-server.h"
+
+#include <nghttp2/asio_http2_server.h>
+
+#include "manna-api.h"
 #include "manna-connection.h"
 
-#include <boost/regex.hpp>
-
-manna::server::server(std::string host = "localhost", int port = 80)
+manna::server::server(std::string host, int port)
 	: lib(new nghttp2::asio_http2::server::http2())
 	, Host(host)
 	, Port(port)
 {
 	this->lib->handle("*", [this](const nghttp2::asio_http2::server::request & req, const nghttp2::asio_http2::server::response & rsp) {
-		std::string path = req.uri().path;
-		for (auto it: this->handlers) {
-			boost::regex pattern{it.first};
-			if (boost::regex_match(path, pattern)) {
-				connection conn(req, rsp);
+		std::string path   = req.uri().path;
+		std::string method = req.method();
 
-				auto h = it.second;
-				h(conn);
-				break;
-			}
+		if (this->Api) {
+			connection conn(req, rsp);
+			handler h = this->Api->getHandler(method, path);
+			if (h) h(conn);
 		}
 	});
 }
 
 manna::server::~server() {
 	delete this->lib;
-}
-
-void manna::server::handle(std::string pattern, handler h) {
-	this->handlers[pattern] = h;
+	delete this->Api;
 }
 
 bool manna::server::run() {

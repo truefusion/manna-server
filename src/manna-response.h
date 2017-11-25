@@ -1,7 +1,16 @@
 #ifndef MANNARESPONSE_H
 #define MANNARESPONSE_H
 
-#include "nghttp2/asio_http2_server.h"
+#include <map>
+
+namespace nghttp2 {
+	namespace asio_http2 {
+		namespace server {
+			class request;
+			class response;
+		}
+	}
+}
 
 namespace manna {
 	class response

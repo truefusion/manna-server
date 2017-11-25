@@ -3,24 +3,31 @@
 
 #include <unordered_map>
 
-#include "manna-connection.h"
+namespace nghttp2 {
+	namespace asio_http2 {
+		namespace server {
+			class http2;
+		}
+	}
+}
 
 namespace manna {
+	class api_interface;
+
 	class server
 	{
 		public:
-			server(std::string, int);
+			server(std::string = "localhost", int = 80);
 			~server();
 
-			void handle(std::string, handler);
 			bool run();
 			void stop();
 
+			api_interface * Api = 0;
 			std::string Host = "localhost";
 			int Port = 80;
 
 		private:
-			std::unordered_map<std::string, handler> handlers;
 			nghttp2::asio_http2::server::http2 * lib = 0;
 	};
 }
