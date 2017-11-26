@@ -10,7 +10,8 @@ manna::server::server(std::string host, int port)
 	, Host(host)
 	, Port(port)
 {
-	this->lib->handle("*", [this](const nghttp2::asio_http2::server::request & req, const nghttp2::asio_http2::server::response & rsp) {
+	// "/" root path allows us to handle all paths!
+	this->lib->handle("/", [this](const nghttp2::asio_http2::server::request & req, const nghttp2::asio_http2::server::response & rsp) {
 		std::string path   = req.uri().path;
 		std::string method = req.method();
 
@@ -29,12 +30,14 @@ manna::server::~server() {
 
 bool manna::server::run() {
 	boost::system::error_code ec;
-	return !((bool) this->lib->listen_and_serve(
+	bool r = !((bool) this->lib->listen_and_serve(
 		ec
 	,	this->Host
 	,	std::to_string(this->Port)
 	,	true
 	));
+	if (!r) std::cerr << "error: " << ec.message() << std::endl;
+	return r;
 }
 
 void manna::server::stop() {

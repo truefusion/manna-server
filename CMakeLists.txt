@@ -4,6 +4,7 @@ project(manna-server)
 
 # nghttp2
 set(ENABLE_LIB_ONLY 1)
+set(ENABLE_ASIO_LIB ON)
 set(ENABLE_THIRD_PARTY 1)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/third-party/nghttp2)
 
