@@ -15,11 +15,11 @@ namespace manna {
 		public:
 			connection(const nghttp2::asio_http2::server::request &, const nghttp2::asio_http2::server::response &);
 
-			const request  & Request;
-			const response & Response;
+			request  Request;
+			response Response;
 	};
 
-	typedef std::function<void(const connection &)> handler;
+	typedef std::function<void(connection &)> handler;
 }
 
 #endif // CONNECTION_H

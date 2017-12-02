@@ -1,6 +1,8 @@
 #ifndef MANNAREQUEST_H
 #define MANNAREQUEST_H
 
+#include <string>
+
 namespace nghttp2 {
 	namespace asio_http2 {
 		namespace server {
@@ -16,7 +18,11 @@ namespace manna {
 		public:
 			request(const nghttp2::asio_http2::server::request &);
 
-			const nghttp2::asio_http2::server::request & impl;
+			std::string getPath() const;
+			std::string getQuery() const;
+
+		private:
+			const nghttp2::asio_http2::server::request &impl;
 	};
 }
 

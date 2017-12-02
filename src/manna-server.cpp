@@ -19,6 +19,10 @@ manna::server::server(std::string host, int port)
 			connection conn(req, rsp);
 			handler h = this->Api->getHandler(method, path);
 			if (h) h(conn);
+			else {
+				rsp.write_head(404);
+				rsp.end();
+			}
 		}
 	});
 }
