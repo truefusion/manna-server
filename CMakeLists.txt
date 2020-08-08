@@ -18,6 +18,6 @@ target_include_directories(
     "${CMAKE_CURRENT_LIST_DIR}/src"
 )
 
-target_link_libraries(manna-server boost_system)
+target_link_libraries(manna-server ${Boost_LIBRARIES}) # Take Boost libraries from nghttp2!
 target_link_libraries(manna-server nghttp2)
 target_link_libraries(manna-server nghttp2_asio)
