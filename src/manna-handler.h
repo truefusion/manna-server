@@ -13,7 +13,9 @@ namespace manna {
         public:
           explicit handler(std::string, std::string, handle);
 
-          handle operator()();
+          handle operator()() {
+              return this->h;
+          };
           operator bool() const {
               return true;
           };
