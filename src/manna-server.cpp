@@ -1,5 +1,7 @@
 #include "manna-server.h"
 
+#include <iostream>
+#include <memory>
 #include <nghttp2/asio_http2_server.h>
 
 #include "manna-api.h"
@@ -17,7 +19,7 @@ manna::server::server(std::string host, int port)
 
 		if (this->Api) {
 			connection conn(req, rsp);
-			handler h = this->Api->getHandler(method, path);
+			handle h = this->Api->getHandler(method, path);
 			if (h) h(conn);
 			else {
 				rsp.write_head(404);
@@ -33,6 +35,8 @@ manna::server::~server() {
 }
 
 bool manna::server::run() {
+	std::cout << "Listening on " << this->Host << ":" << this->Port << std::endl;
+
 	boost::system::error_code ec;
 	bool r = !((bool) this->lib->listen_and_serve(
 		ec

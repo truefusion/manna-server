@@ -1,8 +1,6 @@
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
-#include <functional>
-
 #include "manna-request.h"
 #include "manna-response.h"
 
@@ -17,9 +15,7 @@ namespace manna {
 
 			request  Request;
 			response Response;
-	};
-
-	typedef std::function<void(connection &)> handler;
+        };
 }
 
 #endif // CONNECTION_H
