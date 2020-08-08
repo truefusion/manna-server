@@ -1,6 +1,7 @@
 #ifndef MANNAAPII_H
 #define MANNAAPII_H
 
+#include "manna-connection.h"
 #include "manna-handler.h"
 
 namespace manna {
