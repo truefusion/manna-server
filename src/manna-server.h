@@ -17,14 +17,16 @@ namespace manna {
 	class server
 	{
 		public:
-			server(std::string = "localhost", int = 80);
+			server(std::string = "localhost", int = 80, std::string = "server.key", std::string = "server.crt");
 			~server();
 
 			bool run();
 			void stop();
 
 			api_interface * Api = 0;
+			std::string Certificate;
 			std::string Host = "localhost";
+			std::string PrivateKey;
 			int Port = 80;
 
 		private:

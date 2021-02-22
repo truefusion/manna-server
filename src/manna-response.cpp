@@ -8,6 +8,8 @@ manna::response::response(const nghttp2::asio_http2::server::response &rsp)
 }
 
 void manna::response::flush() {
-	this->impl.write_head(this->Status);
+	this->impl.write_head(this->Status, {
+        {"Access-Control-Allow-Origin", {"*"}}
+	});
 	this->impl.end(this->Body);
 }
